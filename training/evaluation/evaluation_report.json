@@ -1,0 +1,58 @@
+{
+  "mobilenet": {
+    "accuracy": 99.78270317253369,
+    "precision": 0.997874541651382,
+    "recall": 0.9978270317253368,
+    "f1": 0.9978265741829988,
+    "speed": {
+      "single_inference": {
+        "mean_ms": 4.3387259999872185,
+        "median_ms": 4.102600001715473,
+        "std_ms": 0.7085157880286574,
+        "p95_ms": 6.0987700018813475,
+        "p99_ms": 7.06536899906496
+      },
+      "throughput_per_sec": 230.4824042824889,
+      "batch_inference": {
+        "batch_latency_ms": 11.352219999898807,
+        "per_sample_ms": 0.3547568749968377,
+        "speedup": 12.230139303222506
+      }
+    }
+  },
+  "efficientnet": {
+    "accuracy": 99.91308126901347,
+    "precision": 0.9991404172629728,
+    "recall": 0.9991308126901347,
+    "f1": 0.9991307715289361,
+    "speed": {
+      "single_inference": {
+        "mean_ms": 6.926876999932574,
+        "median_ms": 6.671999999525724,
+        "std_ms": 0.7405658900937542,
+        "p95_ms": 8.795979998831172,
+        "p99_ms": 9.278684002274533
+      },
+      "throughput_per_sec": 144.36520238626065,
+      "batch_inference": {
+        "batch_latency_ms": 54.858407999927294,
+        "per_sample_ms": 1.714325249997728,
+        "speedup": 4.040585063972985
+      }
+    }
+  },
+  "comparison": {
+    "winner": "mobilenet",
+    "winner_name": "MobileNetV3-Small",
+    "scores": {
+      "mobilenet": 6,
+      "efficientnet": 1
+    },
+    "accuracy_diff": 0.13037809647978804,
+    "speed_diff": 2.5881509999453556
+  },
+  "winner": {
+    "model": "mobilenet",
+    "onnx_path": "D:\\Coding\\bisindo-battle\\models\\mobilenet_final.onnx"
+  }
+}

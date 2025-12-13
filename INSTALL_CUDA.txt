@@ -1,0 +1,53 @@
+# CARA INSTALL PYTORCH DENGAN CUDA SUPPORT
+# ==========================================
+
+# Problem: PyTorch yang terinstall adalah CPU-only version
+# Solution: Install PyTorch dengan CUDA support
+
+# 1. CEK CUDA VERSION DI KOMPUTER
+# --------------------------------
+# Buka Command Prompt dan jalankan:
+nvidia-smi
+
+# Lihat "CUDA Version" di pojok kanan atas
+# Contoh output: CUDA Version: 12.1
+
+
+# 2. UNINSTALL PYTORCH LAMA
+# --------------------------
+pip uninstall torch torchvision torchaudio
+
+
+# 3. INSTALL PYTORCH DENGAN CUDA
+# --------------------------------
+
+# Untuk CUDA 11.8 (paling kompatibel):
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Untuk CUDA 12.1:
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# Untuk CUDA 12.4:
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+
+# 4. VERIFY INSTALASI
+# --------------------
+python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'CUDA version: {torch.version.cuda}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"N/A\"}')"
+
+
+# CATATAN:
+# --------
+# - Jika tidak punya GPU NVIDIA, training akan tetap jalan di CPU (lambat)
+# - CPU training ~2-3 jam, GPU training ~20-30 menit
+# - Kalau mau lanjut di CPU, skip step ini dan langsung run training
+# - Model tetap akan ter-train dengan baik, cuma lebih lama
+
+
+# ALTERNATIF: Google Colab (GRATIS GPU)
+# --------------------------------------
+# 1. Upload project ke Google Drive
+# 2. Buka Google Colab (colab.research.google.com)
+# 3. Runtime → Change runtime type → GPU (T4)
+# 4. Mount Google Drive dan run training script
+# 5. Download model setelah selesai

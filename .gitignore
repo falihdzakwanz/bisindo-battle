@@ -1,0 +1,56 @@
+# Hugging Face Space folder (deployed separately)
+bisindo-battle/
+
+# Python virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# PyTorch model checkpoints (large files)
+models/*.pt
+models/*.pth
+training/*_best.pt
+training/*_final.pt
+
+# Training artifacts
+training/*_history.json
+training/*.log
+logs/
+*.log
+
+# Dataset (too large for git)
+dataset/
+bisindo/
+
+# ONNX models (already in HF Space)
+*.onnx
+*.onnx.data
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.cache
