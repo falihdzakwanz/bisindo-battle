@@ -17,6 +17,7 @@ Project ini adalah sistem **real-time hand gesture recognition** untuk mengenali
 
 - [Demo](#-demo)
 - [Features](#-features)
+- [Interactive Game](#-interactive-game)
 - [Architecture](#-architecture)
 - [Dataset](#-dataset)
 - [Installation](#-installation)
@@ -37,23 +38,36 @@ Project ini adalah sistem **real-time hand gesture recognition** untuk mengenali
 
 Coba langsung dengan webcam atau upload gambar gesture tangan BISINDO!
 
+**Desktop Game**: Interactive Pygame application dengan 3 game modes! See [game/README.md](game/README.md)
+
+```bash
+# Quick start
+python game/bisindo_game.py
+# atau
+run_game.bat  # Windows
+./run_game.sh  # Linux/Mac
+```
+
 ---
 
 ## ✨ Features
 
 ### 🧠 Multi-Modal AI Architecture
+
 - **Dual-Input System**: Kombinasi visual features (CNN) + geometric features (hand landmarks)
 - **Visual Branch**: MobileNetV3-Small pre-trained pada ImageNet
 - **Geometric Branch**: MediaPipe 21-point hand landmarks
 - **Fusion Strategy**: Early concatenation dengan fully-connected layers
 
 ### 🚀 Production-Ready
+
 - **ONNX Runtime**: Optimized inference engine (3.22× faster than PyTorch)
 - **Real-time Performance**: 600+ FPS capability
 - **Lightweight**: Model hanya 0.22 MB (dapat run di mobile/edge devices)
 - **Gradio Interface**: User-friendly web interface dengan webcam support
 
 ### 🎯 Robust Performance
+
 - **Distance Invariant**: Bekerja di berbagai jarak (30cm - 100cm)
 - **Angle Invariant**: Robust terhadap rotasi dan sudut kamera
 - **Lighting Invariant**: Landmarks geometric features tidak terpengaruh lighting
@@ -61,7 +75,63 @@ Coba langsung dengan webcam atau upload gambar gesture tangan BISINDO!
 
 ---
 
-## 🏗️ Architecture
+## � Interactive Game
+
+**Desktop Pygame Application** dengan 3 game modes interaktif!
+
+### Game Modes
+
+1. **🎯 Challenge Mode**: Selesaikan 10 rounds berurutan
+
+   - Fixed rounds, no time pressure
+   - Focus pada akurasi
+   - Perfect untuk belajar sistematis
+
+2. **🎓 Practice Mode**: Latihan bebas selama 3 menit
+
+   - Belajar tanpa tekanan waktu
+   - Instant feedback setiap gesture
+   - Ideal untuk pemula
+
+3. **⚡ Time Attack**: Score maksimal dalam 60 detik!
+   - Fast-paced, competitive
+   - Score berdasarkan confidence
+   - Challenge untuk advanced players
+
+### Features
+
+- ✨ **Real-time Recognition**: Multi-modal AI (99.94% accuracy)
+- 🐛 **Debug Mode**: Visualisasi MediaPipe landmarks (tekan `D`)
+- ⌨️ **Keyboard Controls**: Full keyboard navigation, no mouse!
+- 📊 **Live Feedback**: Instant prediction dengan confidence bar
+- 🏆 **Scoring System**: Kompetitif scoring berdasarkan accuracy
+
+### Quick Start
+
+```bash
+# Run game
+python game/bisindo_game.py
+
+# atau gunakan launcher
+run_game.bat  # Windows
+./run_game.sh # Linux/Mac
+```
+
+### Controls
+
+| Key       | Action         |
+| --------- | -------------- |
+| **↑↓ ←→** | Navigate       |
+| **ENTER** | Select         |
+| **SPACE** | Submit gesture |
+| **D**     | Toggle debug   |
+| **ESC**   | Back/Pause     |
+
+📖 **Full Documentation**: [game/README.md](game/README.md)
+
+---
+
+## �🏗️ Architecture
 
 ### Multi-Modal Learning Pipeline
 
@@ -116,11 +186,11 @@ Coba langsung dengan webcam atau upload gambar gesture tangan BISINDO!
 
 ### Why Multi-Modal?
 
-| Modality | Strengths | Weaknesses |
-|----------|-----------|------------|
-| **Image** | • Captures appearance details<br>• Fine-grained textures<br>• Color information | • Sensitive to lighting<br>• Affected by distance<br>• Background noise |
+| Modality      | Strengths                                                                                              | Weaknesses                                                                         |
+| ------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| **Image**     | • Captures appearance details<br>• Fine-grained textures<br>• Color information                        | • Sensitive to lighting<br>• Affected by distance<br>• Background noise            |
 | **Landmarks** | • Geometric invariance<br>• Distance/scale invariant<br>• Lighting invariant<br>• Background invariant | • Loses visual details<br>• Fails on occluded hands<br>• Less discriminative alone |
-| **Combined** | ✅ **Best of both worlds**<br>• Robust to variations<br>• High accuracy<br>• Generalizes well | • Slightly slower inference<br>• Requires hand detection |
+| **Combined**  | ✅ **Best of both worlds**<br>• Robust to variations<br>• High accuracy<br>• Generalizes well          | • Slightly slower inference<br>• Requires hand detection                           |
 
 ---
 
@@ -147,18 +217,18 @@ transforms.Compose([
     transforms.GaussianBlur(kernel_size=3),
     transforms.RandomErasing(p=0.2),
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
                         std=[0.229, 0.224, 0.225])
 ])
 ```
 
 ### Landmark Extraction Success Rate
 
-| Gesture Type | Success Rate | Notes |
-|--------------|--------------|-------|
-| Open hand (N, M, K) | 99-100% | Easy detection |
-| Pointing (D, G, H) | 75-90% | Moderate |
-| Closed fist (A, S, T) | 29-42% | Challenging (few visible points) |
+| Gesture Type          | Success Rate | Notes                            |
+| --------------------- | ------------ | -------------------------------- |
+| Open hand (N, M, K)   | 99-100%      | Easy detection                   |
+| Pointing (D, G, H)    | 75-90%       | Moderate                         |
+| Closed fist (A, S, T) | 29-42%       | Challenging (few visible points) |
 
 ---
 
@@ -196,9 +266,11 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 ### Download Dataset
 
 Dataset tidak termasuk dalam repo (terlalu besar). Download dari:
+
 - [Link Dataset] (TBA)
 
 Extract ke folder `dataset/` dengan struktur:
+
 ```
 dataset/
 ├── cropped/
@@ -229,6 +301,7 @@ python scripts/extract_landmarks.py
 **Output**: `dataset/landmarks/train/` dan `dataset/landmarks/val/`
 
 **Stats**:
+
 - Total processed: 11,470 images
 - Successful: 8,506 (74.17%)
 - Failed: 2,962 (25.83%)
@@ -242,6 +315,7 @@ python training/train_mobilenetv3.py
 ```
 
 **Results**:
+
 - Validation Accuracy: 99.78%
 - Training Time: ~20 epochs
 - Inference Speed: 7.87ms
@@ -255,6 +329,7 @@ python training/train_mobilenetv3_robust.py
 ```
 
 **Results**:
+
 - Validation Accuracy: 99.87% (+0.09%)
 - Training Time: 26 epochs
 - Better generalization to distance/angle variations
@@ -268,6 +343,7 @@ python training/train_multimodal.py
 ```
 
 **Results**:
+
 - Validation Accuracy: **99.94%** (highest!)
 - Training Time: 21 epochs (faster convergence)
 - Best robustness to real-world conditions
@@ -288,15 +364,16 @@ python scripts/export_multimodal_onnx.py
 
 ### Accuracy Comparison
 
-| Model | Val Accuracy | Train Accuracy | Epochs | Inference Time |
-|-------|--------------|----------------|--------|----------------|
-| **Baseline (MobileNetV3)** | 99.78% | 99.0% | 20 | 7.87ms |
-| **Robust (+ Augmentation)** | 99.87% | 99.0% | 26 | 8.12ms |
-| **Multi-Modal (Image + Landmarks)** | **99.94%** | 99.0% | 21 | **1.58ms (ONNX)** |
+| Model                               | Val Accuracy | Train Accuracy | Epochs | Inference Time    |
+| ----------------------------------- | ------------ | -------------- | ------ | ----------------- |
+| **Baseline (MobileNetV3)**          | 99.78%       | 99.0%          | 20     | 7.87ms            |
+| **Robust (+ Augmentation)**         | 99.87%       | 99.0%          | 26     | 8.12ms            |
+| **Multi-Modal (Image + Landmarks)** | **99.94%**   | 99.0%          | 21     | **1.58ms (ONNX)** |
 
 ### Training Curves
 
 **Multi-Modal Model** (best):
+
 ```
 Epoch  Train Loss  Train Acc  Val Loss  Val Acc   LR
 -----  ----------  ---------  --------  --------  -------
@@ -311,14 +388,14 @@ Epoch  Train Loss  Train Acc  Val Loss  Val Acc   LR
 
 Tested pada berbagai kondisi:
 
-| Condition | Baseline | Robust | Multi-Modal |
-|-----------|----------|--------|-------------|
-| **Close range (30cm)** | ✅ 95% | ✅ 98% | ✅ 99% |
-| **Medium range (50cm)** | ⚠️ 75% | ✅ 92% | ✅ 98% |
-| **Far range (100cm)** | ❌ 40% | ⚠️ 70% | ✅ 90% |
-| **Angled (30°)** | ⚠️ 65% | ✅ 88% | ✅ 96% |
-| **Low light** | ⚠️ 70% | ⚠️ 75% | ✅ 92% |
-| **Complex background** | ⚠️ 60% | ⚠️ 65% | ✅ 95% |
+| Condition               | Baseline | Robust | Multi-Modal |
+| ----------------------- | -------- | ------ | ----------- |
+| **Close range (30cm)**  | ✅ 95%   | ✅ 98% | ✅ 99%      |
+| **Medium range (50cm)** | ⚠️ 75%   | ✅ 92% | ✅ 98%      |
+| **Far range (100cm)**   | ❌ 40%   | ⚠️ 70% | ✅ 90%      |
+| **Angled (30°)**        | ⚠️ 65%   | ✅ 88% | ✅ 96%      |
+| **Low light**           | ⚠️ 70%   | ⚠️ 75% | ✅ 92%      |
+| **Complex background**  | ⚠️ 60%   | ⚠️ 65% | ✅ 95%      |
 
 **Conclusion**: Multi-modal model significantly better pada real-world conditions!
 
@@ -342,12 +419,14 @@ Open browser: `http://localhost:7860`
 Model deployed di: [https://huggingface.co/spaces/falihdzakwanz/bisindo-battle](https://huggingface.co/spaces/falihdzakwanz/bisindo-battle)
 
 **Deployment Stack**:
+
 - Gradio 6.1.0
 - ONNX Runtime (CPU)
 - MediaPipe Hands
 - Python 3.10
 
 **Performance**:
+
 - Cold start: ~15s
 - Warm inference: 1.58ms per prediction
 - Concurrent users: Scalable with HF Spaces Pro
@@ -407,6 +486,7 @@ bisindo-battle/
 **Initial Issue**: Model dengan 99.78% validation accuracy GAGAL di real-world!
 
 **Root Cause Analysis**:
+
 ```
 Training Data:
 - YOLO-cropped close-up hand images
@@ -428,19 +508,23 @@ Inference Data (Webcam):
 **Hypothesis** (ranked by likelihood):
 
 1. **Data Distribution Shift** (90% confidence) ✅
+
    - Training: Close-up crops
    - Inference: Variable distance/angle
    - **Solution**: Aggressive augmentation + Multi-modal features
 
 2. **Insufficient Augmentation** (80% confidence) ✅
+
    - Original augmentation terlalu weak
    - **Solution**: RandomResizedCrop (0.6-1.0), Perspective, Affine
 
 3. **Feature Representation** (70% confidence) ✅
+
    - Pure visual features sensitive to lighting/background
    - **Solution**: Add geometric landmarks (invariant features)
 
 4. **Model Capacity** (30% confidence) ❌
+
    - MobileNetV3 sufficient (1.5M params, 99.78%)
    - Not the bottleneck
 
@@ -453,18 +537,22 @@ Inference Data (Webcam):
 ### Key Learnings
 
 1. **Validation accuracy ≠ Real-world performance**
+
    - Always test di target deployment environment
    - Distribution shift adalah silent killer
 
 2. **Multi-modal > Single-modal**
+
    - Complementary features increase robustness
    - Visual (appearance) + Geometric (shape) = powerful combo
 
 3. **Augmentation matters**
+
    - Simulate real-world variations during training
    - RandomResizedCrop critical untuk distance invariance
 
 4. **ONNX optimization**
+
    - 3.22× speedup with minimal accuracy loss (<0.0003 difference)
    - Essential untuk production deployment
 
@@ -478,18 +566,21 @@ Inference Data (Webcam):
 ## 🎯 Future Work
 
 ### Short Term
+
 - [ ] Implement game modes (Survival, Time Attack, Precision Master)
 - [ ] Leaderboard dengan Supabase integration
 - [ ] KBBI word filtering untuk game challenges
 - [ ] Mobile app deployment (React Native + ONNX)
 
 ### Medium Term
+
 - [ ] Expand to word recognition (beyond single letters)
 - [ ] Sentence/phrase recognition
 - [ ] Support for dynamic gestures (motion-based signs)
 - [ ] Multi-hand recognition
 
 ### Long Term
+
 - [ ] Real-time video sign language translation
 - [ ] Speech-to-sign and sign-to-speech
 - [ ] Educational curriculum integration
@@ -502,17 +593,20 @@ Inference Data (Webcam):
 Contributions welcome! Areas yang bisa dibantu:
 
 1. **Dataset**:
+
    - Tambah variasi gesture data
    - Different lighting conditions
    - Various backgrounds
    - Different hand sizes/skin tones
 
 2. **Model**:
+
    - Experiment dengan architectures lain
    - Optimize untuk mobile deployment
    - Reduce latency further
 
 3. **Game**:
+
    - Design game modes
    - UI/UX improvements
    - Multiplayer features

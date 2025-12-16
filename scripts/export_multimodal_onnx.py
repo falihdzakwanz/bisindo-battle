@@ -60,7 +60,7 @@ MODEL_PATH = BASE_DIR / "models" / "multimodal_best.pt"
 ONNX_PATH = BASE_DIR / "models" / "multimodal_final.onnx"
 
 NUM_CLASSES = 26
-LANDMARK_DIM = 63
+LANDMARK_DIM = 126  # 🔥 2 HANDS: 21 points × 3 coordinates × 2 hands = 126 features
 IMAGE_SIZE = (224, 224)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -74,7 +74,8 @@ print("\n" + "=" * 60)
 print("🔄 EXPORTING MULTIMODAL MODEL TO ONNX")
 print("=" * 60)
 print("\n📚 Multi-Input ONNX Export Concept:")
-print("   Model has 2 inputs: Image (224×224×3) + Landmarks (63)")
+print("   Model has 2 inputs: Image (224×224×3) + Landmarks (126)")
+print("   🔥 126 features = 2 hands × 63 features per hand")
 print("   ONNX will create single file with dual input interface")
 print("   Runtime inference: Provide both inputs simultaneously\n")
 
