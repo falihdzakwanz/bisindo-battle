@@ -31,3 +31,6 @@ tqdm>=4.65.0
 
 # Additional Utilities
 pyyaml>=6.0.0
+
+# Game Development
+pygame>=2.5.0

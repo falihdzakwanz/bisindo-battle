@@ -136,7 +136,7 @@ LEARNING_RATE = 0.0001
 NUM_EPOCHS = 30
 EARLY_STOPPING_PATIENCE = 5
 NUM_CLASSES = 26
-LANDMARK_DIM = 63  # 21 points × 3 coordinates
+LANDMARK_DIM = 126  # 🔥 2 HANDS: 21 points × 3 coordinates × 2 hands = 126 features
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
